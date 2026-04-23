@@ -1,0 +1,235 @@
+:root {
+  --ink: #111111;
+  --bg: #f3f3ef;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(17, 17, 17, 0.08), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(17, 17, 17, 0.06), transparent 50%),
+    var(--bg);
+  color: var(--ink);
+  font-family: "IBM Plex Mono", monospace;
+}
+
+#app {
+  width: min(700px, 92vw);
+  text-align: center;
+  animation: fade-in 420ms ease-out;
+  min-height: min(740px, 92vh);
+  display: grid;
+  align-content: start;
+}
+
+h1 {
+  margin: 0 0 0.8rem;
+  font-size: clamp(1.2rem, 1.6vw + 0.9rem, 2rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.top-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+#levelLabel {
+  margin: 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+}
+
+#instruction {
+  margin: 1rem auto 1.4rem;
+  max-width: 56ch;
+  line-height: 1.45;
+  font-size: 0.95rem;
+  min-height: 4.1rem;
+  display: grid;
+  align-items: center;
+}
+
+#stage {
+  min-height: 360px;
+  display: grid;
+  align-items: start;
+}
+
+#interaction,
+#resultWrap,
+#summaryWrap {
+  width: 100%;
+}
+
+#controlWrap {
+  margin: 0 auto;
+  width: min(480px, 100%);
+  min-height: 170px;
+  display: grid;
+  place-items: center;
+  gap: 1rem;
+}
+
+button {
+  border: none;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0.55rem 1.2rem;
+  font: inherit;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.small-btn {
+  font-size: 0.72rem;
+  padding: 0.28rem 0.6rem;
+  opacity: 0.82;
+}
+
+#submitBtn,
+.next-btn,
+.restart-btn {
+  margin-top: 1rem;
+}
+
+.value-readout {
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.slider {
+  width: 100%;
+  accent-color: var(--ink);
+}
+
+.fill-wrap {
+  width: 100%;
+}
+
+.fill-track {
+  width: 100%;
+  height: 16px;
+  background: rgba(17, 17, 17, 0.14);
+  overflow: hidden;
+}
+
+.fill-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--ink);
+  transition: width 70ms linear;
+}
+
+.fill-label {
+  margin-top: 0.7rem;
+  font-size: 0.88rem;
+}
+
+.dial {
+  --angle: 0;
+  width: 190px;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: conic-gradient(var(--ink) calc(var(--angle) * 1deg), rgba(17, 17, 17, 0.16) 0);
+  display: grid;
+  place-items: center;
+  cursor: grab;
+  user-select: none;
+}
+
+.dial:active {
+  cursor: grabbing;
+}
+
+.dial-center {
+  width: 128px;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: var(--bg);
+  display: grid;
+  place-items: center;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.stepper {
+  display: grid;
+  gap: 0.8rem;
+  justify-items: center;
+}
+
+.stepper-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.pad-wrap {
+  display: grid;
+  justify-items: center;
+  gap: 0.8rem;
+}
+
+.pad {
+  position: relative;
+  width: min(320px, 76vw);
+  aspect-ratio: 1;
+  background: rgba(17, 17, 17, 0.09);
+  cursor: crosshair;
+}
+
+.marker {
+  position: absolute;
+  width: 12px;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  background: var(--ink);
+  transform: translate(-50%, -50%);
+}
+
+.result,
+.summary {
+  animation: fade-in 220ms ease-out;
+}
+
+.result p,
+.summary p {
+  margin: 0.35rem 0;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HCI Precision Experiment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <h1>Precision Study</h1>
+      <div class="top-row">
+        <p id="levelLabel" aria-live="polite"></p>
+        <button id="resetBtn" class="small-btn" type="button">Reset</button>
+      </div>
+
+      <p id="instruction"></p>
+
+      <section id="stage">
+        <section id="interaction" aria-live="polite">
+          <div id="controlWrap"></div>
+          <button id="submitBtn" type="button">Submit</button>
+        </section>
+
+        <section id="resultWrap" class="hidden" aria-live="polite"></section>
+        <section id="summaryWrap" class="hidden" aria-live="polite"></section>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
