@@ -1,55 +1,70 @@
-const levels = [
-  {
-    name: "The Slider",
-    instruction: "Level 1. Move the horizontal slider to the target: 73.",
-    targetText: "Target: 73",
-    target: 73,
-    create: createSliderLevel,
-    score: (state) => Math.abs(state.value - 73),
-  },
-  {
-    name: "The Fill Button",
-    instruction:
-      "Level 2. Hold the button to fill the bar (it speeds up over time). Release near target: 85.",
-    targetText: "Target: 85",
-    target: 85,
-    create: createFillLevel,
-    score: (state) => Math.abs(state.value - 85),
-  },
-  {
-    name: "The Dial",
-    instruction: "Level 3. Click and drag the dial to approximately 210 degrees.",
-    targetText: "Target: 210 degrees",
-    target: 210,
-    create: createDialLevel,
-    score: (state) => Math.abs(state.value - 210),
-  },
-  {
-    name: "The Stepper",
-    instruction: "Level 4. Start at 0 and reach exactly 58 using +11, +3, and -7.",
-    targetText: "Target: 58",
-    target: 58,
-    create: createStepperLevel,
-    score: (state) => Math.abs(state.value - 58),
-  },
-  {
-    name: "The Spatial Pad",
-    instruction:
-      "Level 5. Click the square to place one marker where you estimate X=70%, Y=30%.",
-    targetText: "Target: X=70%, Y=30%",
-    target: { x: 70, y: 30 },
-    create: createSpatialLevel,
-    score: (state) => {
-      if (!state.point) {
-        return null;
-      }
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-      const xError = Math.abs(state.point.x - 70);
-      const yError = Math.abs(state.point.y - 30);
-      return xError + yError;
+function buildLevels() {
+  const sliderTarget = randomInt(10, 90);
+  const fillTarget = randomInt(10, 90);
+  const dialTarget = randomInt(30, 330);
+  const stepperTarget = randomInt(20, 90);
+  const padTargetX = randomInt(15, 85);
+  const padTargetY = randomInt(15, 85);
+
+  return [
+    {
+      name: "The Slider",
+      instruction: `Level 1. Move the horizontal slider to the target: ${sliderTarget}.`,
+      targetText: `Target: ${sliderTarget}`,
+      target: sliderTarget,
+      create: createSliderLevel,
+      score: (state) => Math.abs(state.value - sliderTarget),
     },
-  },
-];
+    {
+      name: "The Fill Button",
+      instruction:
+        `Level 2. Hold the button to fill the bar (it speeds up over time). Release near target: ${fillTarget}.`,
+      targetText: `Target: ${fillTarget}`,
+      target: fillTarget,
+      create: createFillLevel,
+      score: (state) => Math.abs(state.value - fillTarget),
+    },
+    {
+      name: "The Dial",
+      instruction: `Level 3. Click and drag the dial to approximately ${dialTarget} degrees.`,
+      targetText: `Target: ${dialTarget} degrees`,
+      target: dialTarget,
+      create: createDialLevel,
+      score: (state) => Math.abs(state.value - dialTarget),
+    },
+    {
+      name: "The Stepper",
+      instruction: `Level 4. Start at 0 and reach exactly ${stepperTarget} using +11, +3, and -7.`,
+      targetText: `Target: ${stepperTarget}`,
+      target: stepperTarget,
+      create: createStepperLevel,
+      score: (state) => Math.abs(state.value - stepperTarget),
+    },
+    {
+      name: "The Spatial Pad",
+      instruction:
+        `Level 5. Click the square to place one marker where you estimate X=${padTargetX}%, Y=${padTargetY}%.`,
+      targetText: `Target: X=${padTargetX}%, Y=${padTargetY}%`,
+      target: { x: padTargetX, y: padTargetY },
+      create: createSpatialLevel,
+      score: (state) => {
+        if (!state.point) {
+          return null;
+        }
+
+        const xError = Math.abs(state.point.x - padTargetX);
+        const yError = Math.abs(state.point.y - padTargetY);
+        return xError + yError;
+      },
+    },
+  ];
+}
+
+let levels = buildLevels();
 
 const levelLabel = document.getElementById("levelLabel");
 const instruction = document.getElementById("instruction");
@@ -161,6 +176,7 @@ function showSummary() {
 function restartExperiment() {
   errors = [];
   levelIndex = 0;
+  levels = buildLevels();
   interaction.classList.remove("hidden");
   renderLevel();
 }
