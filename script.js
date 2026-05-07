@@ -456,18 +456,20 @@ function createSpatialLevel(host) {
     }
 
     marker.style.left = `${point.x}%`;
-    marker.style.top = `${point.y}%`;
+    marker.style.top = `${point.screenY}%`;
     readout.textContent = `Marker: X=${point.x.toFixed(1)}%, Y=${point.y.toFixed(1)}%`;
   };
 
   pad.addEventListener("click", (event) => {
     const rect = pad.getBoundingClientRect();
     const x = ((event.clientX - rect.left) / rect.width) * 100;
-    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    const yScreen = ((event.clientY - rect.top) / rect.height) * 100;
+    const yLogical = 100 - yScreen;
 
     point = {
       x: Math.max(0, Math.min(100, x)),
-      y: Math.max(0, Math.min(100, y)),
+      y: Math.max(0, Math.min(100, yLogical)),
+      screenY: Math.max(0, Math.min(100, yScreen)),
     };
 
     refresh();
